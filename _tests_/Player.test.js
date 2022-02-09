@@ -1,3 +1,5 @@
+const Player = require('../lib/Player');
+
 test("gets player's stats as an object", () => {
   const player = new Player('Dave');
 
@@ -50,4 +52,17 @@ test('uses a potion from inventory', () => {
   player.usePotion(1);
 
   expect(player.inventory.length).toBeLessThan(oldCount);
+});
+
+test("subtracts from player's health", () => {
+  const player = new Player('Dave');
+  const oldHealth = player.health;
+
+  player.reduceHealth(5);
+
+  expect(player.health).toBe(oldHealth - 5);
+
+  player.reduceHealth(99999);
+
+  expect(player.health).toBe(0);
 });
